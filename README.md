@@ -1,2 +1,2 @@
-# my_tutorial_reactjs
-Some tutorial with reactjs | redux | redux saga
+# my_task_reactjs
+An example using reactjs | redux | react router
