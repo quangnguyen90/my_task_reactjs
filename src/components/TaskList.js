@@ -10,13 +10,23 @@ class TaskList extends React.Component {
     }
 
     render() {
+        var { tasks } = this.props;
+        var elmTasks = tasks.map((task, index) => {
+            return <TaskItem
+                key={task.id}
+                index={index}
+                task={task}
+            />
+        });
         return (
             <table className="table table-bordered table-hover mt-15">
                 <thead>
-                    <th className="text-center">#</th>
-                    <th className="text-center">Name</th>
-                    <th className="text-center">Status</th>
-                    <th className="text-center">Action</th>
+                    <tr>
+                        <th className="text-center">#</th>
+                        <th className="text-center">Name</th>
+                        <th className="text-center">Status</th>
+                        <th className="text-center">Action</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr>
@@ -33,7 +43,7 @@ class TaskList extends React.Component {
                         </td>
                         <td></td>
                     </tr>
-                    <TaskItem />
+                    {elmTasks}
                 </tbody>
             </table>
         );
