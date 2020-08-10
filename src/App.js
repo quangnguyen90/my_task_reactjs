@@ -104,6 +104,19 @@ class App extends React.Component {
     return result;
   }
 
+  onDelete = (id) => {
+    var { tasks } = this.state;
+    var index = this.findIndex(id);
+    if (index !== -1) {
+      tasks.splice(index, 1);
+      this.setState({
+        tasks: tasks
+      });
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+    this.onCloseForm();
+  }
+
   render() {
     var { tasks, isDisplayForm } = this.state;
     var elmTaskForm = isDisplayForm
@@ -142,6 +155,7 @@ class App extends React.Component {
                 <TaskList
                   tasks={tasks}
                   onUpdateStatus={this.onUpdateStatus}
+                  onDelete={this.onDelete}
                 />
               </div>
             </div>
