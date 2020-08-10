@@ -18,7 +18,9 @@ class App extends React.Component {
   componentDidMount() {
     if (localStorage && localStorage.getItem('tasks')) {
       var tasks = JSON.parse(localStorage.getItem('tasks'));
-      console.log(tasks);
+      this.setState({
+        tasks: tasks
+      });
     }
   }
 
