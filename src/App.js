@@ -69,20 +69,32 @@ class App extends React.Component {
     });
   }
 
+  onSubmit = (data) => {
+    var { tasks } = this.state;
+    data.id = this.generateRandomString()
+    tasks.push(data);
+    this.setState({
+      tasks: tasks
+    });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+
   render() {
     var { tasks, isDisplayForm } = this.state;
-    var elmTaskForm = isDisplayForm ? <TaskForm onCloseForm={this.onCloseForm} /> : '';
+    var elmTaskForm = isDisplayForm
+      ? <TaskForm onSubmit={this.onSubmit} onCloseForm={this.onCloseForm} />
+      : '';
     return (
       <div className="container">
         <div className="text-center">
           <h1>Task Management App</h1>
         </div>
         <div className="row">
-          <div className={isDisplayForm == true ? 'col-xs-4 col-sm-4 col-md-4 col-lg-4' : ''}>
+          <div className={isDisplayForm === true ? 'col-xs-4 col-sm-4 col-md-4 col-lg-4' : ''}>
             {/* Form */}
             {elmTaskForm}
           </div>
-          <div className={isDisplayForm == true ? 'col-xs-8 col-sm-8 col-md-8 col-lg-8' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12'}>
+          <div className={isDisplayForm === true ? 'col-xs-8 col-sm-8 col-md-8 col-lg-8' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12'}>
             <button
               type="button"
               className="btn btn-primary"
