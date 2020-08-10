@@ -28,6 +28,16 @@ class TaskForm extends React.Component {
     onSubmit = (event) => {
         event.preventDefault();
         this.props.onSubmit(this.state);
+        // cancel & close form
+        this.onClear();
+        this.onCloseForm();
+    }
+
+    onClear = () => {
+        this.setState({
+            name: '',
+            status: false
+        })
     }
 
     render() {
@@ -72,7 +82,11 @@ class TaskForm extends React.Component {
                                 <span className="fa fa-plus mr-5"></span>Save
                             </button>
                             &nbsp;
-                            <button type="button" className="btn btn-danger">
+                            <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={this.onClear}
+                            >
                                 <span className="fa fa-close mr-5"></span>Cancel
                             </button>
                         </div>
