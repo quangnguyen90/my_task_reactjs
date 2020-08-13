@@ -10,7 +10,8 @@ class App extends React.Component {
 
     this.state = {
       tasks: [],
-      isDisplayForm: false
+      isDisplayForm: false,
+      taskEditing: null
     };
 
   }
@@ -60,9 +61,17 @@ class App extends React.Component {
   }
 
   onToggleForm = () => {
-    this.setState({
-      isDisplayForm: !this.state.isDisplayForm
-    });
+    if (this.state.isDisplayForm && this.state.taskEditing !== null) {
+      this.setState({
+        isDisplayForm: true,
+        taskEditing: null
+      });
+    } else {
+      this.setState({
+        isDisplayForm: !this.state.isDisplayForm,
+        taskEditing: null
+      });
+    }
   }
 
   onCloseForm = () => {
@@ -71,12 +80,25 @@ class App extends React.Component {
     });
   }
 
+  onShowForm = () => {
+    this.setState({
+      isDisplayForm: true
+    });
+  }
+
   onSubmit = (data) => {
     var { tasks } = this.state;
-    data.id = this.generateRandomString()
-    tasks.push(data);
+    if (data.id === '') {
+      data.id = this.generateRandomString()
+      tasks.push(data);
+    } else {
+      // Editing
+      var index = this.findIndex(data.id);
+      tasks[index] = data;
+    }
     this.setState({
-      tasks: tasks
+      tasks: tasks,
+      taskEditing: null
     });
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
@@ -117,10 +139,25 @@ class App extends React.Component {
     this.onCloseForm();
   }
 
+  onUpdate = (id) => {
+    var { tasks } = this.state;
+    var index = this.findIndex(id);
+    var taskEditing = tasks[index];
+    this.setState({
+      taskEditing: taskEditing
+    });
+    this.onShowForm();
+
+  }
+
   render() {
-    var { tasks, isDisplayForm } = this.state;
+    var { tasks, isDisplayForm, taskEditing } = this.state;
     var elmTaskForm = isDisplayForm
-      ? <TaskForm onSubmit={this.onSubmit} onCloseForm={this.onCloseForm} />
+      ? <TaskForm
+          onSubmit={this.onSubmit}
+          onCloseForm={this.onCloseForm}
+          task={taskEditing}
+        />
       : '';
     return (
       <div className="container">
@@ -156,6 +193,7 @@ class App extends React.Component {
                   tasks={tasks}
                   onUpdateStatus={this.onUpdateStatus}
                   onDelete={this.onDelete}
+                  onUpdate={this.onUpdate}
                 />
               </div>
             </div>

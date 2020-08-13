@@ -4,8 +4,9 @@ class TaskForm extends React.Component {
         super(props);
 
         this.state = {
-            name: '',
-            status: false
+            id: this.props.task !== null ? this.props.task.id : '',
+            name: this.props.task !== null ? this.props.task.name : '',
+            status: this.props.task !== null ? this.props.task.status : false
         };
 
     }
@@ -35,18 +36,62 @@ class TaskForm extends React.Component {
 
     onClear = () => {
         this.setState({
+            id: '',
             name: '',
             status: false
         })
     }
 
+    componentDidMount() {
+        if (this.props.task && this.props.task !== null) {
+            this.setState({
+                id: this.props.task.id,
+                name: this.props.task.name,
+                status: this.props.task.status
+            })
+        }
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if(nextProps.task && nextProps.task.id !== prevState.id) {
+            return {
+                id: nextProps.task.id,
+                name: nextProps.task.name,
+                status: nextProps.task.status
+            };
+        }
+        else return null;
+    }
+
+    // For old version. Now replace by function getDerivedStateFromProps
+    // Install: npx react-codemod rename-unsafe-lifecycles
+    // UNSAFE_componentWillReceiveProps(nextProps) {
+    //     // console.log(nextProps);
+    //     // console.log(nextProps.task);
+    //     if (nextProps && nextProps.task) {
+    //         this.setState({
+    //             id: nextProps.task.id,
+    //             name: nextProps.task.name,
+    //             status: nextProps.task.status,
+    //         });
+    //     } else if (!nextProps.task) {
+    //         this.setState({
+    //             id: "",
+    //             name: "",
+    //             status: false,
+    //         });
+    //     }
+    // }
+
+
     render() {
+        var { id } = this.state;
         return (
             <div className="panel panel-warning">
                 <div className="panel-heading">
 
                     <h3 className="panel-title">
-                        Add New Task
+                        { id !== '' ? 'Edit task' : 'Add New Task'}
                         <span
                             className="fa fa-times-circle text-right"
                             onClick={this.onCloseForm}
