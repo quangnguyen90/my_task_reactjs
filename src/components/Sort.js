@@ -22,14 +22,14 @@ class Sort extends React.Component {
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
                         <li>
-                            <a role="button" className="sort_selected">
+                            <a href="/#" role="button" className="sort_selected">
                                 <span className="fa fa-sort-alpha-asc pr-5">
                                     Name A-Z
                                 </span>
                             </a>
                         </li>
                         <li>
-                            <a role="button">
+                            <a href="/#" role="button">
                                 <span className="fa fa-sort-alpha-asc pr-5">
                                     Name Z-A
                                 </span>
@@ -37,12 +37,12 @@ class Sort extends React.Component {
                         </li>
                         <li role="separator" className="divider"></li>
                         <li>
-                            <a role="button">
+                            <a href="/#" role="button">
                                 Status: Active
                             </a>
                         </li>
                         <li>
-                            <a role="button">
+                            <a href="/#" role="button">
                                 Status: Inactive
                             </a>
                         </li>
