@@ -11,7 +11,11 @@ class App extends React.Component {
     this.state = {
       tasks: [],
       isDisplayForm: false,
-      taskEditing: null
+      taskEditing: null,
+      filter: {
+        name: '',
+        status: -1
+      }
     };
 
   }
@@ -150,14 +154,38 @@ class App extends React.Component {
 
   }
 
+  onFilter = (filterName, filterStatus) => {
+    filterStatus = parseInt(filterStatus, 10);
+    this.setState({
+      filter: {
+        name: filterName.toLowerCase(),
+        status: filterStatus
+      }
+    })
+  }
+
   render() {
-    var { tasks, isDisplayForm, taskEditing } = this.state;
+    var { tasks, isDisplayForm, taskEditing, filter } = this.state;
+    if (filter) {
+      if (filter.name) {
+        tasks = tasks.filter((task) => {
+          return task.name.toLowerCase().indexOf(filter.name) !== -1;
+        });
+      }
+      tasks = tasks.filter((task) => {
+        if (filter.status === -1) {
+          return task;
+        } else {
+          return task.status === (filter.status === 1 ? true : false)
+        }
+      });
+    }
     var elmTaskForm = isDisplayForm
       ? <TaskForm
-          onSubmit={this.onSubmit}
-          onCloseForm={this.onCloseForm}
-          task={taskEditing}
-        />
+        onSubmit={this.onSubmit}
+        onCloseForm={this.onCloseForm}
+        task={taskEditing}
+      />
       : '';
     return (
       <div className="container">
@@ -194,6 +222,7 @@ class App extends React.Component {
                   onUpdateStatus={this.onUpdateStatus}
                   onDelete={this.onDelete}
                   onUpdate={this.onUpdate}
+                  onFilter={this.onFilter}
                 />
               </div>
             </div>
