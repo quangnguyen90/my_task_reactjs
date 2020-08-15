@@ -53,15 +53,33 @@ class TaskForm extends React.Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if(nextProps.task && nextProps.task.id !== prevState.id) {
+        if (nextProps && nextProps.task !== null && nextProps.task.id !== prevState.id) {
             return {
                 id: nextProps.task.id,
                 name: nextProps.task.name,
                 status: nextProps.task.status
             };
         }
+        else if (!nextProps.task && prevState.id !== '') {
+            return {
+                id: '',
+                name: '',
+                status: false,
+            };
+        }
         else return null;
     }
+
+    // For old version. Now replace by function componentDidMount
+    // componentWillMount() {
+    //     if (this.props.task && this.props.task !== null) {
+    //         this.setState({
+    //             id: this.props.task.id,
+    //             name: this.props.task.name,
+    //             status: this.props.task.status
+    //         })
+    //     }
+    // }
 
     // For old version. Now replace by function getDerivedStateFromProps
     // Install: npx react-codemod rename-unsafe-lifecycles
@@ -91,7 +109,7 @@ class TaskForm extends React.Component {
                 <div className="panel-heading">
 
                     <h3 className="panel-title">
-                        { id !== '' ? 'Edit task' : 'Add New Task'}
+                        {id !== '' ? 'Edit task' : 'Add New Task'}
                         <span
                             className="fa fa-times-circle text-right"
                             onClick={this.onCloseForm}
