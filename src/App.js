@@ -3,6 +3,10 @@ import './App.css';
 import TaskForm from './components/TaskForm';
 import TaskControl from './components/TaskControl';
 import TaskList from './components/TaskList';
+// C1: Import all
+//import _ from 'lodash';
+// C2: Import filtered function
+import { findIndex, filter as filterSearch } from "lodash";
 
 class App extends React.Component {
   constructor(props) {
@@ -114,7 +118,19 @@ class App extends React.Component {
 
   onUpdateStatus = (id) => {
     var { tasks } = this.state;
-    var index = this.findIndex(id);
+    // C1: Manual
+    // var index = this.findIndex(id);
+
+    // C2: Using Lodash lib (import all)
+    // var index = _.findIndex(tasks, function (task) {
+    //   return task.id === id;
+    // });
+
+    // C3: Using only function findIndex from lodash
+    var index = findIndex(tasks, function (task) {
+      return task.id === id;
+    });
+
     if (index !== -1) {
       tasks[index].status = !tasks[index].status;
       this.setState({
@@ -206,8 +222,19 @@ class App extends React.Component {
     }
 
     if (keyword) {
-      tasks = tasks.filter((task) => {
-        return task.name.toLowerCase().indexOf(keyword) !== -1;
+      // C1: Manual
+      // tasks = tasks.filter((task) => {
+      //   return task.name.toLowerCase().indexOf(keyword) !== -1;
+      // });
+
+      // C2: Using Lodash Lib - Import all
+      // tasks = _.filter(tasks, function (task) {
+      //   return task.name.toLowerCase().indexOf(keyword) !== -1
+      // });
+
+      // C3: Using only function filter from lodash
+      tasks = filterSearch(tasks, function (task) {
+        return task.name.toLowerCase().indexOf(keyword) !== -1
       });
     }
 
