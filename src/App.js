@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import TaskForm from './components/TaskForm';
-import Control from './components/Control';
+import TaskControl from './components/TaskControl';
 import TaskList from './components/TaskList';
 
 class App extends React.Component {
@@ -227,7 +227,7 @@ class App extends React.Component {
               <span className="fa fa-plus mr-5"></span>Generate Data
             </button>
             {/* Search - Sort */}
-            <Control onSearch={this.onSearch} />
+            <TaskControl onSearch={this.onSearch} />
             {/* List */}
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">

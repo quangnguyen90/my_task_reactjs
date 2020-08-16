@@ -1,5 +1,5 @@
 import React from 'react';
-class Sort extends React.Component {
+class TaskSort extends React.Component {
     constructor(props) {
         super(props);
 
@@ -53,8 +53,8 @@ class Sort extends React.Component {
     }
 }
 
-Sort.propTypes = {
+TaskSort.propTypes = {
 
 };
 
-export default Sort;
+export default TaskSort;

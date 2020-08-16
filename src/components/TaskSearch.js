@@ -1,5 +1,5 @@
 import React from 'react';
-class Search extends React.Component {
+class TaskSearch extends React.Component {
     constructor(props) {
         super(props);
 
@@ -50,8 +50,8 @@ class Search extends React.Component {
     }
 }
 
-Search.propTypes = {
+TaskSearch.propTypes = {
 
 };
 
-export default Search;
+export default TaskSearch;
