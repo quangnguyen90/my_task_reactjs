@@ -23,7 +23,7 @@ var myReducer = (state = initialState, action) => {
             var newTask = {
                 id: generateRandomString(),
                 name: action.task.name,
-                status: action.task.status === 'true' ? true : false
+                status: action.task.status === true ? true : false
             }
             state.push(newTask);
             localStorage.setItem('tasks', JSON.stringify(state));
