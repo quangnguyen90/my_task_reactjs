@@ -13,7 +13,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      tasks: [],
+      //tasks: [],
       isDisplayForm: false,
       taskEditing: null,
       filter: {
@@ -29,14 +29,14 @@ class App extends React.Component {
 
   }
 
-  componentDidMount() {
-    if (localStorage && localStorage.getItem('tasks')) {
-      var tasks = JSON.parse(localStorage.getItem('tasks'));
-      this.setState({
-        tasks: tasks
-      });
-    }
-  }
+  // componentDidMount() {
+  //   if (localStorage && localStorage.getItem('tasks')) {
+  //     var tasks = JSON.parse(localStorage.getItem('tasks'));
+  //     this.setState({
+  //       tasks: tasks
+  //     });
+  //   }
+  // }
 
   onGenerateData = () => {
     var tasks = [
@@ -56,9 +56,9 @@ class App extends React.Component {
         status: true
       },
     ];
-    this.setState({
-      tasks: tasks
-    });
+    // this.setState({
+    //   tasks: tasks
+    // });
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
 
@@ -199,58 +199,58 @@ class App extends React.Component {
 
   render() {
     var {
-      tasks,
+      //tasks,
       isDisplayForm,
       taskEditing,
-      filter,
-      keyword,
-      sort
+      //filter,
+      //keyword,
+      //sort
     } = this.state;
-    if (filter) {
-      if (filter.name) {
-        tasks = tasks.filter((task) => {
-          return task.name.toLowerCase().indexOf(filter.name) !== -1;
-        });
-      }
-      tasks = tasks.filter((task) => {
-        if (filter.status === -1) {
-          return task;
-        } else {
-          return task.status === (filter.status === 1 ? true : false)
-        }
-      });
-    }
+    //if (filter) {
+    // if (filter.name) {
+    //   tasks = tasks.filter((task) => {
+    //     return task.name.toLowerCase().indexOf(filter.name) !== -1;
+    //   });
+    // }
+    // tasks = tasks.filter((task) => {
+    //   if (filter.status === -1) {
+    //     return task;
+    //   } else {
+    //     return task.status === (filter.status === 1 ? true : false)
+    //   }
+    // });
+    //}
 
-    if (keyword) {
-      // C1: Manual
-      // tasks = tasks.filter((task) => {
-      //   return task.name.toLowerCase().indexOf(keyword) !== -1;
-      // });
+    //if (keyword) {
+    // C1: Manual
+    // tasks = tasks.filter((task) => {
+    //   return task.name.toLowerCase().indexOf(keyword) !== -1;
+    // });
 
-      // C2: Using Lodash Lib - Import all
-      // tasks = _.filter(tasks, function (task) {
-      //   return task.name.toLowerCase().indexOf(keyword) !== -1
-      // });
+    // C2: Using Lodash Lib - Import all
+    // tasks = _.filter(tasks, function (task) {
+    //   return task.name.toLowerCase().indexOf(keyword) !== -1
+    // });
 
-      // C3: Using only function filter from lodash
-      tasks = filterSearch(tasks, function (task) {
-        return task.name.toLowerCase().indexOf(keyword) !== -1
-      });
-    }
+    // C3: Using only function filter from lodash
+    // tasks = filterSearch(tasks, function (task) {
+    //   return task.name.toLowerCase().indexOf(keyword) !== -1
+    // });
+    //}
 
-    if (sort.by === 'name') {
-      tasks.sort((a, b) => {
-        if (a.name > b.name) return sort.value; // ASC
-        else if (a.name < b.name) return -sort.value; // DESC
-        else return 0; // Default
-      });
-    } else {
-      tasks.sort((a, b) => {
-        if (a.status > b.status) return -sort.value;
-        else if (a.status < b.status) return sort.value;
-        else return 0; // Default
-      });
-    }
+    // if (sort.by === 'name') {
+    //   tasks.sort((a, b) => {
+    //     if (a.name > b.name) return sort.value; // ASC
+    //     else if (a.name < b.name) return -sort.value; // DESC
+    //     else return 0; // Default
+    //   });
+    // } else {
+    //   tasks.sort((a, b) => {
+    //     if (a.status > b.status) return -sort.value;
+    //     else if (a.status < b.status) return sort.value;
+    //     else return 0; // Default
+    //   });
+    // }
 
     var elmTaskForm = isDisplayForm
       ? <TaskForm
