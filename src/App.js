@@ -15,7 +15,6 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      // isDisplayForm: false,
       taskEditing: null,
       filter: {
         name: '',
@@ -63,48 +62,14 @@ class App extends React.Component {
   }
 
   onToggleForm = () => {
-    // if (this.state.isDisplayForm && this.state.taskEditing !== null) {
-    //   this.setState({
-    //     isDisplayForm: true,
-    //     taskEditing: null
-    //   });
-    // } else {
-    //   this.setState({
-    //     isDisplayForm: !this.state.isDisplayForm,
-    //     taskEditing: null
-    //   });
-    // }
     this.props.onToggleForm();
   }
-
-  // onCloseForm = () => {
-  //   this.setState({
-  //     isDisplayForm: false
-  //   });
-  // }
 
   onShowForm = () => {
     this.setState({
       isDisplayForm: true
     });
   }
-
-  // onSubmit = (data) => {
-  //   var { tasks } = this.state;
-  //   if (data.id === '') {
-  //     data.id = this.generateRandomString()
-  //     tasks.push(data);
-  //   } else {
-  //     // Editing
-  //     var index = this.findIndex(data.id);
-  //     tasks[index] = data;
-  //   }
-  //   this.setState({
-  //     tasks: tasks,
-  //     taskEditing: null
-  //   });
-  //   localStorage.setItem('tasks', JSON.stringify(tasks));
-  // }
 
   onUpdateStatus = (id) => {
     var { tasks } = this.state;
@@ -189,7 +154,6 @@ class App extends React.Component {
 
   render() {
     var {
-      // isDisplayForm,
       taskEditing,
       //filter,
       //keyword,
@@ -247,7 +211,6 @@ class App extends React.Component {
 
     var elmTaskForm = isDisplayForm
       ? <TaskForm
-        // onCloseForm={this.onCloseForm}
         task={taskEditing}
       />
       : '';
