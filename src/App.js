@@ -293,7 +293,6 @@ class App extends React.Component {
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <TaskList
-                  tasks={tasks}
                   onUpdateStatus={this.onUpdateStatus}
                   onDelete={this.onDelete}
                   onUpdate={this.onUpdate}
