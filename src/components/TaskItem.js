@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from './../actions/index';
 
 class TaskItem extends React.Component {
     constructor(props) {
@@ -6,6 +8,17 @@ class TaskItem extends React.Component {
 
         this.state = {};
 
+    }
+
+    showStatusElement() {
+        return (
+            <span
+                className={this.props.task.status === true ? 'label label-danger' : 'label label-success'}
+                onClick={this.onUpdateStatus}
+            >
+                {this.props.task.status === true ? 'Active' : 'InActive'}
+            </span>
+        );
     }
 
     onUpdateStatus = () => {
@@ -27,13 +40,7 @@ class TaskItem extends React.Component {
                 <td>{index + 1}</td>
                 <td>{task.name}</td>
                 <td className="text-center">
-                    <span
-                        className={task.status === true ? 'label label-danger' : 'label label-success'}
-                        onClick={this.onUpdateStatus}
-                    >
-                        {task.status === true ? 'Active' : 'InActive'}
-                    </span>
-
+                    {this.showStatusElement()}
                 </td>
                 <td className="text-center">
                     <button
@@ -61,4 +68,16 @@ TaskItem.propTypes = {
 
 };
 
-export default TaskItem;
+const mapStateToProps = state => {
+    return {}
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onUpdateStatus: (id) => {
+            dispatch(actions.updateStatus(id));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskItem);

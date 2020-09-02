@@ -71,30 +71,6 @@ class App extends React.Component {
     });
   }
 
-  onUpdateStatus = (id) => {
-    var { tasks } = this.state;
-    // C1: Manual
-    // var index = this.findIndex(id);
-
-    // C2: Using Lodash lib (import all)
-    // var index = _.findIndex(tasks, function (task) {
-    //   return task.id === id;
-    // });
-
-    // C3: Using only function findIndex from lodash
-    var index = findIndex(tasks, function (task) {
-      return task.id === id;
-    });
-
-    if (index !== -1) {
-      tasks[index].status = !tasks[index].status;
-      this.setState({
-        tasks: tasks
-      });
-    }
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }
-
   findIndex = (id) => {
     var { tasks } = this.state;
     var result = -1;
@@ -209,11 +185,8 @@ class App extends React.Component {
     //   });
     // }
 
-    var elmTaskForm = isDisplayForm
-      ? <TaskForm
-        task={taskEditing}
-      />
-      : '';
+    var elmTaskForm = isDisplayForm === true ? <TaskForm task={taskEditing} /> : '';
+
     return (
       <div className="container">
         <div className="text-center">
@@ -248,7 +221,6 @@ class App extends React.Component {
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <TaskList
-                  onUpdateStatus={this.onUpdateStatus}
                   onDelete={this.onDelete}
                   onUpdate={this.onUpdate}
                   onFilter={this.onFilter}

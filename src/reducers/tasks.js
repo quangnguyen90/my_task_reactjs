@@ -1,4 +1,5 @@
 import * as types from './../constants/ActionType'
+import { clone } from 'lodash';
 
 var randomString = () => {
     return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
@@ -9,6 +10,16 @@ var generateRandomString = () => {
         + '-' + randomString() + '-' + randomString()
         + '-' + randomString() + '-' + randomString()
         + '-' + randomString() + '-' + randomString();
+}
+
+var findIndex = (tasks, id) => {
+    var result = -1;
+    tasks.forEach((task, index) => {
+        if (task.id === id) {
+            result = index;
+        }
+    });
+    return result;
 }
 
 var data = JSON.parse(localStorage.getItem('tasks'));
@@ -26,6 +37,15 @@ var myReducer = (state = initialState, action) => {
                 status: action.task.status === true ? true : false
             }
             state.push(newTask);
+            localStorage.setItem('tasks', JSON.stringify(state));
+            return [...state];
+        case types.UPDATE_STATUS_TASK:
+            var id = action.id;
+            var index = findIndex(state, id);
+            state[index] = {
+                ...state[index],
+                status: !state[index].status
+            }
             localStorage.setItem('tasks', JSON.stringify(state));
             return [...state];
         default: return state;
