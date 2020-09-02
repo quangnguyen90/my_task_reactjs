@@ -15,7 +15,6 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      //tasks: [],
       // isDisplayForm: false,
       taskEditing: null,
       filter: {
@@ -30,15 +29,6 @@ class App extends React.Component {
     };
 
   }
-
-  // componentDidMount() {
-  //   if (localStorage && localStorage.getItem('tasks')) {
-  //     var tasks = JSON.parse(localStorage.getItem('tasks'));
-  //     this.setState({
-  //       tasks: tasks
-  //     });
-  //   }
-  // }
 
   onGenerateData = () => {
     var tasks = [
@@ -58,9 +48,6 @@ class App extends React.Component {
         status: true
       },
     ];
-    // this.setState({
-    //   tasks: tasks
-    // });
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
 
@@ -202,7 +189,6 @@ class App extends React.Component {
 
   render() {
     var {
-      // tasks,
       // isDisplayForm,
       taskEditing,
       //filter,
@@ -261,7 +247,6 @@ class App extends React.Component {
 
     var elmTaskForm = isDisplayForm
       ? <TaskForm
-        // onSubmit={this.onSubmit}
         // onCloseForm={this.onCloseForm}
         task={taskEditing}
       />

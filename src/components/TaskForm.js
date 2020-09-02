@@ -31,7 +31,6 @@ class TaskForm extends React.Component {
 
     onSubmit = (event) => {
         event.preventDefault();
-        //this.props.onSubmit(this.state);
         this.props.onAddTask(this.state);
         // cancel & close form
         this.onClear();
