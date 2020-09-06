@@ -25,7 +25,6 @@ class TaskList extends React.Component {
     }
 
     render() {
-        console.log(this.props.todos);
         var { tasks } = this.props; // this.props.tasks
         var { filterName, filterStatus } = this.state;
         var elmTasks = tasks.map((task, index) => {
@@ -33,7 +32,6 @@ class TaskList extends React.Component {
                 key={task.id}
                 index={index}
                 task={task}
-                onUpdate={this.props.onUpdate}
             />
         });
         return (

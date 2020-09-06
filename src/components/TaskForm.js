@@ -7,11 +7,10 @@ class TaskForm extends React.Component {
         super(props);
 
         this.state = {
-            id: this.props.task !== null ? this.props.task.id : '',
-            name: this.props.task !== null ? this.props.task.name : '',
-            status: this.props.task !== null ? this.props.task.status : false
+            id: '',
+            name: '',
+            status: false
         };
-
     }
     onChange = (event) => {
         var target = event.target;
@@ -29,10 +28,18 @@ class TaskForm extends React.Component {
         this.props.onCloseForm();
     }
 
-    onSubmit = (event) => {
+    onSave = (event) => {
         event.preventDefault();
-        this.props.onAddTask(this.state);
+        this.props.onSaveTask(this.state);
         // cancel & close form
+        var { itemEditing } = this.props;
+        if (itemEditing && itemEditing.id !== '') {
+            this.props.onClearTask({
+                id: '',
+                name: '',
+                status: false
+            });
+        }
         this.onClear();
         this.onCloseForm();
     }
@@ -42,28 +49,30 @@ class TaskForm extends React.Component {
             id: '',
             name: '',
             status: false
-        })
+        });
     }
 
     componentDidMount() {
-        if (this.props.task && this.props.task !== null) {
+        if (this.props.itemEditing && this.props.itemEditing !== null) {
             this.setState({
-                id: this.props.task.id,
-                name: this.props.task.name,
-                status: this.props.task.status
-            })
+                id: this.props.itemEditing.id,
+                name: this.props.itemEditing.name,
+                status: this.props.itemEditing.status
+            });
+        } else {
+            this.onClear();
         }
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps && nextProps.task !== null && nextProps.task.id !== prevState.id) {
+        if (nextProps && nextProps.itemEditing && nextProps.itemEditing.id !== prevState.id) {
             return {
-                id: nextProps.task.id,
-                name: nextProps.task.name,
-                status: nextProps.task.status
+                id: nextProps.itemEditing.id,
+                name: nextProps.itemEditing.name,
+                status: nextProps.itemEditing.status
             };
         }
-        else if (!nextProps.task && prevState.id !== '') {
+        else if (!nextProps.itemEditing && prevState.id !== '') {
             return {
                 id: '',
                 name: '',
@@ -75,12 +84,14 @@ class TaskForm extends React.Component {
 
     // For old version. Now replace by function componentDidMount
     // componentWillMount() {
-    //     if (this.props.task && this.props.task !== null) {
+    //     if (this.props.itemEditing && this.props.itemEditing.id !== null) {
     //         this.setState({
-    //             id: this.props.task.id,
-    //             name: this.props.task.name,
-    //             status: this.props.task.status
-    //         })
+    //             id: this.props.itemEditing.id,
+    //             name: this.props.itemEditing.name,
+    //             status: this.props.itemEditing.status
+    //         });
+    //     } else {
+    //          this.onClear();
     //     }
     // }
 
@@ -88,14 +99,14 @@ class TaskForm extends React.Component {
     // Install: npx react-codemod rename-unsafe-lifecycles
     // UNSAFE_componentWillReceiveProps(nextProps) {
     //     // console.log(nextProps);
-    //     // console.log(nextProps.task);
-    //     if (nextProps && nextProps.task) {
+    //     // console.log(nextProps.itemEditing);
+    //     if (nextProps && nextProps.itemEditing) {
     //         this.setState({
-    //             id: nextProps.task.id,
-    //             name: nextProps.task.name,
-    //             status: nextProps.task.status,
+    //             id: nextProps.itemEditing.id,
+    //             name: nextProps.itemEditing.name,
+    //             status: nextProps.itemEditing.status,
     //         });
-    //     } else if (!nextProps.task) {
+    //     } else if (!nextProps.itemEditing) {
     //         this.setState({
     //             id: "",
     //             name: "",
@@ -104,15 +115,14 @@ class TaskForm extends React.Component {
     //     }
     // }
 
-
     render() {
-        var { id } = this.state;
+        if (!this.props.isDisplayForm) return null;
         return (
             <div className="panel panel-warning">
                 <div className="panel-heading">
 
                     <h3 className="panel-title">
-                        {id !== '' ? 'Edit task' : 'Add New Task'}
+                        {this.state.id !== '' ? 'Edit task' : 'Add New Task'}
                         <span
                             className="fa fa-times-circle text-right"
                             onClick={this.onCloseForm}
@@ -121,7 +131,7 @@ class TaskForm extends React.Component {
                 </div>
 
                 <div className="panel-body">
-                    <form onSubmit={this.onSubmit}>
+                    <form onSubmit={this.onSave}>
                         <div className="form-group">
                             <label>Name: </label>
                             <input
@@ -169,17 +179,21 @@ TaskForm.propTypes = {
 
 const mapStateToProps = state => {
     return {
-
+        isDisplayForm: state.isDisplayForm,
+        itemEditing: state.itemEditing
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        onAddTask: (task) => {
-            dispatch(actions.addTask(task));
+        onSaveTask: (task) => {
+            dispatch(actions.saveTask(task));
         },
         onCloseForm: () => {
             dispatch(actions.closeForm());
+        },
+        onClearTask: (task) => {
+            dispatch(actions.editTask(task));
         },
     }
 }
