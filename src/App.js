@@ -11,21 +11,21 @@ class App extends React.Component {
     var tasks = [
       {
         id: this.generateRandomString(),
-        name: 'ReactJS',
+        name: 'ReactJS - ' + this.randomString(),
         status: true
       },
       {
         id: this.generateRandomString(),
-        name: 'Nodejs',
+        name: 'Nodejs - ' + this.randomString(),
         status: false
       },
       {
         id: this.generateRandomString(),
-        name: 'FullStack',
+        name: 'FullStack - ' + this.randomString(),
         status: true
       },
     ];
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    this.props.onGenerateTask(tasks);
   }
 
   randomString() {
@@ -114,6 +114,9 @@ const mapDispatchToProps = (dispatch, props) => {
     onOpenForm: () => {
       dispatch(actions.openForm());
     },
+    onGenerateTask: (tasks) => {
+      dispatch(actions.generateTask(tasks));
+    }
   };
 }
 

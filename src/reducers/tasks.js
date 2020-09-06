@@ -35,7 +35,7 @@ var myReducer = (state = initialState, action) => {
             var task = {
                 id: action.task.id,
                 name: action.task.name,
-                status: action.task.status === true ? true : false
+                status: (action.task.status === 'true' || action.task.status === true) ? true : false
             };
 
             if (!task.id) {
@@ -62,6 +62,13 @@ var myReducer = (state = initialState, action) => {
             state.splice(index, 1);
             localStorage.setItem('tasks', JSON.stringify(state));
             return [...state];
+        case types.GENERATE_TASK:
+            var tasks = [
+                ...state,
+                ...action.tasks
+            ];
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            return tasks;
         default: return state;
     }
 }

@@ -72,3 +72,10 @@ export const sortTask = (sort) => {
         sort // sort: sort => sortBy, sortValue
     }
 }
+
+export const generateTask = (tasks) => {
+    return {
+        type: types.GENERATE_TASK,
+        tasks // tasks: tasks
+    }
+}
