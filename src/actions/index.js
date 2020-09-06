@@ -65,3 +65,10 @@ export const searchTask = (keyword) => {
         keyword // keyword: keyword => filterName, filterStatus
     }
 }
+
+export const sortTask = (sort) => {
+    return {
+        type: types.SORT,
+        sort // sort: sort => sortBy, sortValue
+    }
+}

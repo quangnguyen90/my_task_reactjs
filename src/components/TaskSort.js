@@ -1,28 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from './../actions/index';
+
 class TaskSort extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            sort: {
-                by: 'name',
-                value: 1
-            }
-        };
-    }
-
-    onClick = async (sortBy, sortValue) => {
-        await this.setState({
-            sort: {
-                by: sortBy,
-                value: sortValue
-            }
+    onClick = (sortBy, sortValue) => {
+        this.props.onSort({
+            by: sortBy,
+            value: sortValue
         });
-        this.props.onSort(this.state.sort);
     }
 
     render() {
-        var { sort } = this.state;
+        var { sort } = this.props;
         return (
             <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div className="dropdown">
@@ -107,8 +96,18 @@ class TaskSort extends React.Component {
     }
 }
 
-TaskSort.propTypes = {
+const mapStateToProps = (state) => {
+    return {
+        sort: state.sort
+    }
+}
 
-};
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onSort: (sort) => {
+            dispatch(actions.sortTask(sort));
+        }
+    }
+}
 
-export default TaskSort;
+export default connect(mapStateToProps, mapDispatchToProps)(TaskSort);

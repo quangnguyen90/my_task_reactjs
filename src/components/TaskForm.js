@@ -173,10 +173,6 @@ class TaskForm extends React.Component {
     }
 }
 
-TaskForm.propTypes = {
-
-};
-
 const mapStateToProps = state => {
     return {
         isDisplayForm: state.isDisplayForm,

@@ -53,10 +53,6 @@ class TaskSearch extends React.Component {
     }
 }
 
-TaskSearch.propTypes = {
-
-};
-
 const mapStateToProps = (state) => {
     return {}
 }

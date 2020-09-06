@@ -7,18 +7,6 @@ import { connect } from 'react-redux';
 import * as actions from './actions/index';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      sort: {
-        by: 'name',
-        value: 1
-      }
-    };
-
-  }
-
   onGenerateData = () => {
     var tasks = [
       {
@@ -65,34 +53,8 @@ class App extends React.Component {
     });
   }
 
-  onSort = (sort) => {
-    this.setState({
-      sort: sort,
-    });
-  }
-
   render() {
-    var {
-      //sort
-    } = this.state;
-
-    var {
-      isDisplayForm
-    } = this.props;
-
-    // if (sort.by === 'name') {
-    //   tasks.sort((a, b) => {
-    //     if (a.name > b.name) return sort.value; // ASC
-    //     else if (a.name < b.name) return -sort.value; // DESC
-    //     else return 0; // Default
-    //   });
-    // } else {
-    //   tasks.sort((a, b) => {
-    //     if (a.status > b.status) return -sort.value;
-    //     else if (a.status < b.status) return sort.value;
-    //     else return 0; // Default
-    //   });
-    // }
+    var { isDisplayForm } = this.props;
 
     return (
       <div className="container">
@@ -120,9 +82,7 @@ class App extends React.Component {
               <span className="fa fa-plus mr-5"></span>Generate Data
             </button>
             {/* Search - Sort */}
-            <TaskControl
-              onSort={this.onSort}
-            />
+            <TaskControl />
             {/* List */}
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">

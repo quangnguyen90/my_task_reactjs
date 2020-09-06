@@ -3,27 +3,14 @@ import TaskSearch from './TaskSearch';
 import TaskSort from './TaskSort';
 
 class TaskControl extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-
-    }
-
     render() {
         return (
             <div className="row mt-15">
                 <TaskSearch />
-                <TaskSort
-                    onSort={this.props.onSort}
-                />
+                <TaskSort />
             </div>
         );
     }
 }
-
-TaskControl.propTypes = {
-
-};
 
 export default TaskControl;

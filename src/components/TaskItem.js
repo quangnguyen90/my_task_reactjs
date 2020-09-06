@@ -3,13 +3,6 @@ import { connect } from 'react-redux';
 import * as actions from './../actions/index';
 
 class TaskItem extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-
-    }
-
     showStatusElement() {
         return (
             <span
@@ -65,10 +58,6 @@ class TaskItem extends React.Component {
         );
     }
 }
-
-TaskItem.propTypes = {
-
-};
 
 const mapStateToProps = state => {
     return {}
