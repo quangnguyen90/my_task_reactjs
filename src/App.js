@@ -15,10 +15,6 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      filter: {
-        name: '',
-        status: -1
-      },
       keyword: '',
       sort: {
         by: 'name',
@@ -91,16 +87,6 @@ class App extends React.Component {
     return result;
   }
 
-  onFilter = (filterName, filterStatus) => {
-    filterStatus = parseInt(filterStatus, 10);
-    this.setState({
-      filter: {
-        name: filterName.toLowerCase(),
-        status: filterStatus
-      }
-    })
-  }
-
   onSearch = (keyword) => {
     this.setState({
       keyword: keyword.toLocaleLowerCase()
@@ -115,7 +101,6 @@ class App extends React.Component {
 
   render() {
     var {
-      //filter,
       //keyword,
       //sort
     } = this.state;
@@ -123,20 +108,6 @@ class App extends React.Component {
     var {
       isDisplayForm
     } = this.props;
-    //if (filter) {
-    // if (filter.name) {
-    //   tasks = tasks.filter((task) => {
-    //     return task.name.toLowerCase().indexOf(filter.name) !== -1;
-    //   });
-    // }
-    // tasks = tasks.filter((task) => {
-    //   if (filter.status === -1) {
-    //     return task;
-    //   } else {
-    //     return task.status === (filter.status === 1 ? true : false)
-    //   }
-    // });
-    //}
 
     //if (keyword) {
     // C1: Manual
@@ -202,9 +173,7 @@ class App extends React.Component {
             {/* List */}
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <TaskList
-                  onFilter={this.onFilter}
-                />
+                <TaskList />
               </div>
             </div>
           </div>
