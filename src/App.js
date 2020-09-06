@@ -3,10 +3,6 @@ import './App.css';
 import TaskForm from './components/TaskForm';
 import TaskControl from './components/TaskControl';
 import TaskList from './components/TaskList';
-// C1: Import all
-//import _ from 'lodash';
-// C2: Import filtered function
-import { findIndex, filter as filterSearch } from "lodash";
 import { connect } from 'react-redux';
 import * as actions from './actions/index';
 
@@ -15,7 +11,6 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      keyword: '',
       sort: {
         by: 'name',
         value: 1
@@ -70,29 +65,6 @@ class App extends React.Component {
     });
   }
 
-  onShowForm = () => {
-    this.setState({
-      isDisplayForm: true
-    });
-  }
-
-  findIndex = (id) => {
-    var { tasks } = this.state;
-    var result = -1;
-    tasks.forEach((task, index) => {
-      if (task.id === id) {
-        result = index;
-      }
-    });
-    return result;
-  }
-
-  onSearch = (keyword) => {
-    this.setState({
-      keyword: keyword.toLocaleLowerCase()
-    })
-  }
-
   onSort = (sort) => {
     this.setState({
       sort: sort,
@@ -101,30 +73,12 @@ class App extends React.Component {
 
   render() {
     var {
-      //keyword,
       //sort
     } = this.state;
 
     var {
       isDisplayForm
     } = this.props;
-
-    //if (keyword) {
-    // C1: Manual
-    // tasks = tasks.filter((task) => {
-    //   return task.name.toLowerCase().indexOf(keyword) !== -1;
-    // });
-
-    // C2: Using Lodash Lib - Import all
-    // tasks = _.filter(tasks, function (task) {
-    //   return task.name.toLowerCase().indexOf(keyword) !== -1
-    // });
-
-    // C3: Using only function filter from lodash
-    // tasks = filterSearch(tasks, function (task) {
-    //   return task.name.toLowerCase().indexOf(keyword) !== -1
-    // });
-    //}
 
     // if (sort.by === 'name') {
     //   tasks.sort((a, b) => {
@@ -167,7 +121,6 @@ class App extends React.Component {
             </button>
             {/* Search - Sort */}
             <TaskControl
-              onSearch={this.onSearch}
               onSort={this.onSort}
             />
             {/* List */}

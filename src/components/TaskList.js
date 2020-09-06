@@ -28,7 +28,9 @@ class TaskList extends React.Component {
     }
 
     render() {
-        var { tasks, filterTable } = this.props;
+        var { tasks, filterTable, keyword } = this.props;
+        var { filterName, filterStatus } = this.state;
+
         if (filterTable) {
             if (filterTable.name) {
                 tasks = tasks.filter((task) => {
@@ -43,7 +45,13 @@ class TaskList extends React.Component {
                 }
             });
         }
-        var { filterName, filterStatus } = this.state;
+
+        if (keyword) {
+            tasks = tasks.filter((task) => {
+                return task.name.toLowerCase().indexOf(keyword) !== -1;
+            });
+        }
+
         var elmTasks = tasks.map((task, index) => {
             return <TaskItem
                 key={task.id}
@@ -101,7 +109,8 @@ TaskList.propTypes = {
 const mapStateToProps = (state) => {
     return {
         tasks: state.tasks,
-        filterTable: state.filterTable
+        filterTable: state.filterTable,
+        keyword: state.search
     }
 }
 

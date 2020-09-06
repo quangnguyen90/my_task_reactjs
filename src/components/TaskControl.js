@@ -13,7 +13,7 @@ class TaskControl extends React.Component {
     render() {
         return (
             <div className="row mt-15">
-                <TaskSearch onSearch={this.props.onSearch} />
+                <TaskSearch />
                 <TaskSort
                     onSort={this.props.onSort}
                 />
